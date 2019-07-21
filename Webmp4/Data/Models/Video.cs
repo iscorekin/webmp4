@@ -14,11 +14,7 @@ namespace Webmp4.Data.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime UploadDate { get; set; }
-        private string _tags { get; set; }
-        public List<string> Tags
-        {
-            get { return _tags.Split(',').ToList(); }
-            set { _tags = String.Join(',', value.ToArray()); }
-        }
+        public string Tags { get; set; }
+        public string Extension { get; set; }
     }
 }
