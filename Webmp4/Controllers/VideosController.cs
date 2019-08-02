@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -12,11 +11,12 @@ using Webmp4.Constants;
 using MediaToolkit.Model;
 using MediaToolkit;
 using MediaToolkit.Options;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.IO;
 
 namespace Webmp4.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class VideosController : Controller
     {
         private VideosContext _videosContext;
@@ -37,9 +37,9 @@ namespace Webmp4.Controllers
         [Route("upload")]
         [HttpPost]
         public async Task<IActionResult> UploadVideo(
-            [FromForm] string name, 
-            [FromForm] string description, 
-            [FromForm] string tags, 
+            [FromForm] string name,
+            [FromForm] string description,
+            [FromForm] string tags,
             IFormFile video
         )
         {
@@ -92,7 +92,7 @@ namespace Webmp4.Controllers
             {
                 FileStream fs = new FileStream(Path.Combine(VideosConstants.VIDEOS_PATH, video.VideoFile), FileMode.Open);
 
-                return File(fs, $"{Path.GetExtension(video.VideoFile)}");
+                return File(fs, $"video/{Path.GetExtension(video.VideoFile).Split('.')[1]}");
             }
 
             return NotFound();
