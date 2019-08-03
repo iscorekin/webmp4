@@ -37,6 +37,7 @@ namespace Webmp4.Controllers
         [Route("upload")]
         [HttpPost]
         public async Task<IActionResult> UploadVideo(
+            [FromForm] string author,
             [FromForm] string name,
             [FromForm] string description,
             [FromForm] string tags,
@@ -45,7 +46,7 @@ namespace Webmp4.Controllers
         {
             if (video != null)
             {
-                string id = VideoHelpers.GenerateId();
+                string id = GenericHelpers.GenerateId();
                 string extension = Path.GetExtension(video.FileName);
                 string fileName = $"{id}{extension}";
 
@@ -68,6 +69,7 @@ namespace Webmp4.Controllers
                 _videosContext.Videos.Add(new Video
                 {
                     Id = id,
+                    Author = author,
                     VideoFile = fileName,
                     Name = name,
                     Extension = extension,

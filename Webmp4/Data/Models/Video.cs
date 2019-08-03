@@ -9,6 +9,7 @@ namespace Webmp4.Data.Models
     {
         [Key]
         public string Id { get; set; }
+        public string Author { get; set; }
         public string VideoFile { get; set; }
         public string Thumbnail { get; set; }
         public string Name { get; set; }
@@ -16,5 +17,6 @@ namespace Webmp4.Data.Models
         public DateTime UploadDate { get; set; }
         public string Tags { get; set; }
         public string Extension { get; set; }
+        
     }
 }

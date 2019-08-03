@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Webmp4.Helpers
 {
-    public static class VideoHelpers
+    public static class GenericHelpers
     {
         public static string GenerateId()
         {
