@@ -12,6 +12,7 @@ using MediaToolkit.Model;
 using MediaToolkit;
 using MediaToolkit.Options;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Webmp4.Controllers
 {
@@ -19,11 +20,11 @@ namespace Webmp4.Controllers
     [ApiController]
     public class VideosController : Controller
     {
-        private VideosContext _videosContext;
+        private Context _context;
 
-        public VideosController(VideosContext videosContext)
+        public VideosController(Context context)
         {
-            _videosContext = videosContext;
+            _context = context;
         }
 
         // GET: /videos/list&offset={offset}&limit={limit}
@@ -31,9 +32,10 @@ namespace Webmp4.Controllers
         [HttpGet]
         public IEnumerable<Video> GetVideosList(int offset, int limit)
         {
-            return _videosContext.Videos.ToList().Skip(offset).Take(limit);
+            return _context.Videos.ToList().Skip(offset).Take(limit);
         }
 
+        [Authorize]
         [Route("upload")]
         [HttpPost]
         public async Task<IActionResult> UploadVideo(
@@ -66,7 +68,7 @@ namespace Webmp4.Controllers
                     engine.GetThumbnail(mediaVideoFile, mediaThumbFile, options);
                 }
 
-                _videosContext.Videos.Add(new Video
+                _context.Videos.Add(new Video
                 {
                     Id = id,
                     Author = author,
@@ -78,7 +80,7 @@ namespace Webmp4.Controllers
                     Thumbnail = $"{id}.jpg",
                 });
 
-                _videosContext.SaveChanges();
+                _context.SaveChanges();
                 return Ok();
             }
 
@@ -88,7 +90,7 @@ namespace Webmp4.Controllers
         [HttpGet("stream/{id}")]
         public IActionResult GetStream(string id)
         {
-            var video = _videosContext.Videos.FirstOrDefault(x => x.Id == id);
+            var video = _context.Videos.FirstOrDefault(x => x.Id == id);
 
             if (video != null)
             {
@@ -103,7 +105,7 @@ namespace Webmp4.Controllers
         [HttpGet("info/{id}")]
         public IActionResult GetInfo(string id)
         {
-            var video = _videosContext.Videos.FirstOrDefault(x => x.Id == id);
+            var video = _context.Videos.FirstOrDefault(x => x.Id == id);
 
             if (video != null)
             {

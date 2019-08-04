@@ -7,15 +7,15 @@ using Webmp4.Data.Models;
 
 namespace Webmp4.Data
 {
-    public class VideosContext : DbContext
+    public class Context : DbContext
     {
         public DbSet<Video> Videos { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        public VideosContext(DbContextOptions<VideosContext> options)
+        public Context(DbContextOptions<Context> options)
             : base(options)
         {
             Database.EnsureCreated();
         }
-
     }
 }
