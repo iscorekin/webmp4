@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 import propTypes from 'prop-types';
 import Resizer from './Resizer';
 import AppHeader from '../components/AppHeader';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 const Layout = props => {
   const { title, children } = props;
@@ -9,10 +16,12 @@ const Layout = props => {
   document.title = `${title} | webmp4`;
   
   return (
-    <Resizer>
+    <Wrapper>
       <AppHeader />
-      {children}
-    </Resizer>
+      <Resizer>
+        {children}
+      </Resizer>
+    </Wrapper>
   )
 };
 
