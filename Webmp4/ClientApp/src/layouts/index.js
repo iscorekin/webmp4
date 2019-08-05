@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import Resizer from './Resizer';
+import AppHeader from '../components/AppHeader';
 
 const Layout = props => {
   const { title, children } = props;
@@ -9,6 +10,7 @@ const Layout = props => {
   
   return (
     <Resizer>
+      <AppHeader />
       {children}
     </Resizer>
   )

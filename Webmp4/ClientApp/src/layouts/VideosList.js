@@ -3,7 +3,7 @@ import Layout from './index';
 import VideosListContainer from '../containers/VideosList';
 
 const VideosListLayout = props => (
-  <Layout>
+  <Layout title='Главная'>
     <VideosListContainer {...props} />
   </Layout>
 );
