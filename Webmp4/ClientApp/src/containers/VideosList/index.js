@@ -1,6 +1,34 @@
-import React from 'react';
-import VideosList from '../../components/VideosList';
-// Here should be mapStateToProps
-const VideosListContainer = props => <VideosList {...props} />;
+/* eslint-disable react/prop-types */
+import React, { useEffect } from 'react';
 
-export default VideosListContainer;
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import VideosList from '../../components/VideosList';
+import * as videosModule from '../../store/modules/videosList';
+
+const VideosListContainer = props => {
+  const { list } = props;
+  const { getList } = props;
+
+  useEffect(() => {
+    if (list.length === 0)
+      getList();
+  }, [])
+
+  return (<VideosList {...props} />);
+};
+
+const mapStateToProps = (state) => {
+  const { videosList } = state.videos;
+
+  return videosList;
+}
+
+const actions = {
+  getList: videosModule.getVideosList,
+};
+
+export default connect(
+  mapStateToProps,
+  dispatch => bindActionCreators(actions, dispatch)
+)(VideosListContainer);
