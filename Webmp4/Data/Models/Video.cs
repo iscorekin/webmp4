@@ -17,6 +17,6 @@ namespace Webmp4.Data.Models
         public DateTime UploadDate { get; set; }
         public string Tags { get; set; }
         public string Extension { get; set; }
-        
+        public bool Nsfw { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace Webmp4.Controllers
             [FromForm] string name,
             [FromForm] string description,
             [FromForm] string tags,
+            [FromForm] string nsfw,
             IFormFile video
         )
         {
@@ -78,6 +79,8 @@ namespace Webmp4.Controllers
                     Description = description,
                     UploadDate = DateTime.Now,
                     Thumbnail = $"{id}.jpg",
+                    Tags = tags,
+                    Nsfw = nsfw == 0 ? false : true,
                 });
 
                 _context.SaveChanges();
