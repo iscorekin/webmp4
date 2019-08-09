@@ -4,7 +4,7 @@ import { JWT } from '../constants/env';
 export const api = Axios.create({
   baseURL: '/api',
   headers: {
-    'authorization': JWT || '',
+    'authorization': JWT ? `Bearer ${JWT}` : '',
   }
 });
 
