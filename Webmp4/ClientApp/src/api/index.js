@@ -17,7 +17,7 @@ export const videosApi = Axios.create({
 
 export const userApi = Axios.create({
   baseURL: '/api/user',
-  header: {
+  headers: {
     'Authorization': JWT ? `Bearer ${JWT}` : '',
   }
 })

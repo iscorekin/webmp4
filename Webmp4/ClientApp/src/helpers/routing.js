@@ -1,14 +1,13 @@
 import queryString from 'query-string';
+import jwtDecode from 'jwt-decode';
+import cookies from 'js-cookie';
 
 export const getQuery = () => queryString.parse(window.location.search);
 
 export const setQuery = query => { window.location.search = queryString.stringify(query) };
 
 export function getCookie(name) {
-  const matches = document.cookie.match(new RegExp(
-    `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g,'\\$1')}=([^;]*)`
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+  return cookies.get(name);
 }
 
 export const generateParams = params => {
@@ -21,6 +20,7 @@ export const generateParams = params => {
   return paramsArr.join('&');
 }
 
-export const setCookie = (key, value) => {
-  document.cookie = `${document.cookie} ${key}=${value};`;
+export const setJWT = (token) => {
+  console.log(jwtDecode(token).exp)
+  cookies.set('JWT', token, { expires: jwtDecode(token).exp })
 }

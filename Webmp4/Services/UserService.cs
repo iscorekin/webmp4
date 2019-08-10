@@ -17,8 +17,8 @@ namespace Webmp4.Services
     public interface IUserService
     {
         void SetContext(Context context);
-        User Authenticate(string username, string password);
-        User CreateNew(string username, string password);
+        UserResponse Authenticate(string username, string password);
+        UserResponse CreateNew(string username, string password);
     }
 
     public class UserService : IUserService
@@ -70,22 +70,17 @@ namespace Webmp4.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public User Authenticate(string username, string password)
+        public UserResponse Authenticate(string username, string password)
         {
             var user = _context.Users.SingleOrDefault(x => x.Name == username && x.PasswordHash == ComputeSha256Hash(password));
 
             if (user == null)
                 return null;
 
-            return new User {
-                Id = user.Id,
-                Name = user.Name,
-                Role = user.Role,
-                Token = GenerateToken(user),
-            };
+            return new UserResponse(user, GenerateToken(user));
         }
 
-        public User CreateNew(string username, string password)
+        public UserResponse CreateNew(string username, string password)
         {
             if (_context.Users.FirstOrDefault(x => x.Name == username) != null) {
                 return null;
@@ -103,13 +98,7 @@ namespace Webmp4.Services
 
             _context.SaveChanges();
 
-            return new User
-            {
-                Id = newUser.Id,
-                Name = newUser.Name,
-                Role = newUser.Role,
-                Token = GenerateToken(newUser),
-            }; ;
+            return new UserResponse(newUser, GenerateToken(newUser));
         }
     }
 }

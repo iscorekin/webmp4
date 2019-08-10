@@ -13,8 +13,8 @@ export const getUser = () => async (dispatch) => {
   dispatch({ type: USER_REQUEST });
 
   try {
-    const response = await api.getUserInfo();
-    dispatch({ type: USER_RECEIVE, payload: response }) 
+    const { payload } = await api.getUserInfo();
+    dispatch({ type: USER_RECEIVE, payload }) 
   }
   catch(err) {
     console.log(err);
@@ -27,8 +27,8 @@ export const loginOrRegister = (login, password, isLogin = true) => async (dispa
   const apiAction = isLogin ? api.login : api.register;
 
   try {
-    const response = await apiAction(login, password);
-    dispatch({ type: USER_RECEIVE, payload: response }) 
+    const { payload } = await apiAction(login, password);
+    dispatch({ type: USER_RECEIVE, payload }) 
   }
   catch(err) {
     console.log(err);

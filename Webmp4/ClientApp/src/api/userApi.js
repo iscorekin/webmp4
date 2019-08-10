@@ -1,5 +1,6 @@
 import { userApi } from './index';
 import User from '../models/User';
+import { setJWT } from '../helpers/routing';
 
 export const getUserInfo = async () => {
   const response = await userApi.get(`/info`);
@@ -18,6 +19,7 @@ export const login = async (name, password) => {
     { headers: { 'Content-Type': 'multipart/form-data' } },
   );
 
+  setJWT(response.data.token);
   return new User(response);
 };
 
@@ -32,5 +34,6 @@ export const register = async (name, password) => {
     { headers: { 'Content-Type': 'multipart/form-data' } },
   );
 
+  setJWT(response.data.token);
   return new User(response);
 };
