@@ -1,4 +1,4 @@
-import { getVideos } from "../../api/videosApi";
+import { getVideos } from "../../../api/videosApi";
 
 const VIDEOS_LIST_REQUEST = 'VIDEOSLIST/REQUEST';
 const VIDEOS_LIST_RECEIVE = 'VIDEOSLIST/RECIVE';

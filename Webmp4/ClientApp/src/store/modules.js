@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
-import videosList from './modules/videosList';
+import videos from './modules/videos';
+import app from './modules/app';
 
 export default {
-  videos: combineReducers({
-    videosList,
-  })
+  videos,
+  app,
 };

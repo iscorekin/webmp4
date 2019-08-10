@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Webmp4.Data;
 using Webmp4.Data.Models;
 using Webmp4.Services;
@@ -47,12 +48,32 @@ namespace Webmp4.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "user")]
+        [Authorize(Roles = "admin")]
         [HttpGet("all")]
         public IEnumerable<User> GetAll()
         {
             return _context.Users.ToList();
         }
 
+        [Authorize]
+        [HttpGet("info")]
+        public IActionResult Info()
+        {
+            string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            if (userId != null) {
+                var user = _context.Users.FirstOrDefault(x => x.Id == userId);
+                return new ObjectResult(
+                    new User
+                    {
+                        Id = user.Id,
+                        Name = user.Id,
+                        Role = user.Role
+                    }
+                );
+            }
+
+            return NotFound();
+        }
     }
 }

@@ -52,31 +52,37 @@ namespace Webmp4.Services
             }
         }
 
-        public User Authenticate(string username, string password)
+        private string GenerateToken(User user)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Name == username && x.PasswordHash == ComputeSha256Hash(password));
-
-            // return null if user not found
-            if (user == null)
-                return null;
-
-            // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(365),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+            return tokenHandler.WriteToken(token);
+        }
 
-            return user;
+        public User Authenticate(string username, string password)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.Name == username && x.PasswordHash == ComputeSha256Hash(password));
+
+            if (user == null)
+                return null;
+
+            return new User {
+                Id = user.Id,
+                Name = user.Name,
+                Role = user.Role,
+                Token = GenerateToken(user),
+            };
         }
 
         public User CreateNew(string username, string password)
@@ -97,7 +103,13 @@ namespace Webmp4.Services
 
             _context.SaveChanges();
 
-            return newUser;
+            return new User
+            {
+                Id = newUser.Id,
+                Name = newUser.Name,
+                Role = newUser.Role,
+                Token = GenerateToken(newUser),
+            }; ;
         }
     }
 }

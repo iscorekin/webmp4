@@ -43,7 +43,7 @@ namespace Webmp4.Controllers
             [FromForm] string name,
             [FromForm] string description,
             [FromForm] string tags,
-            [FromForm] string nsfw,
+            [FromForm] int nsfw,
             IFormFile video
         )
         {

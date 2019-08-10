@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
+import store from '../../store/configureStore';
 
 const Protected = (props) => {
   const { children, renderDenied = null } = props;
-  const { roles = [] } = props;
-  const { user } = props;
+  const { roles } = props;
+  const { user } = store.getState().app;
 
-  const accessGranted = roles.length === 0 || roles.includes(user.role);
+  const accessGranted = (!roles && user.isLogged) || roles.includes(user.role);
  
   return <Fragment>{accessGranted ? children : renderDenied}</Fragment>;
 }

@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import VideosList from '../../components/VideosList';
-import * as videosModule from '../../store/modules/videosList';
+import * as videosModule from '../../store/modules/videos/videosList';
 
 const VideosListContainer = props => {
   const { list } = props;
