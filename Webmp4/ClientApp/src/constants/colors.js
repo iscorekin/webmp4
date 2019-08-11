@@ -4,6 +4,7 @@ export default {
   geyser: '#CED7DF',
   shuttleGrey: '#59626A',
   outerSpace: '#323B43',
+  black: '#000000',
   mantis: '#76B852',
   earlyDawn: '#FFF9EA',
   burntSienna: '#EE4F4F',

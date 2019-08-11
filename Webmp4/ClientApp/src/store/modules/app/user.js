@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
     case USER_REQUEST:
       return { ...state, loading: true, };
     case USER_RECEIVE: 
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload, loading: false };
     case USER_REJECT: 
       return { ...state, loading: false };
     default:

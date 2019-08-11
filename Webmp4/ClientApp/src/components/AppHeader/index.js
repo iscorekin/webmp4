@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import logo from '../../assets/icons/logo.svg'
 import * as UI from './styles';
 import Resizer from '../../layouts/Resizer';
 
-const AppHeader = () => {
-
+const AppHeader = ({ app }) => {
   return (
     <UI.Wrapper>
       <Resizer>

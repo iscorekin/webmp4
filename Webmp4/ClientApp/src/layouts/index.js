@@ -11,21 +11,28 @@ const Wrapper = styled.div`
 `;
 
 const Layout = props => {
-  const { title, children } = props;
+  const { title, children, app } = props;
 
   document.title = `${title} | webmp4`;
   
+  const childrenWithExtraProp = React.Children.map(children, child => {
+    return React.cloneElement(child, {
+      ...props
+    });
+  });
+
   return (
     <Wrapper>
-      <AppHeader />
+      <AppHeader app={app}/>
       <Resizer>
-        {children}
+        {childrenWithExtraProp}
       </Resizer>
     </Wrapper>
   )
 };
 
 Layout.propTypes = {
+  app: propTypes.object,
   title: propTypes.string,
   children: propTypes.element,
 };

@@ -1,5 +1,4 @@
 import queryString from 'query-string';
-import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
 
 export const getQuery = () => queryString.parse(window.location.search);

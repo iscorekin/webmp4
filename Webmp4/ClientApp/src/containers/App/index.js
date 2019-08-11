@@ -4,43 +4,49 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { JWT } from '../../constants/env';
 import * as userModule from '../../store/modules/app/user';
+import LoginOrRegister from '../LoginOrRegister';
 
 const AppContainer = props => {
   const { children } = props;
-  const { user, getUser, loginOrRegister } = props;
+  const { user, getUser } = props;
 
   useEffect(() => {
-    if(!user.isLogged && JWT) {
+    if (!user.isLogged && JWT) {
       getUser();
     }
   }, []);
 
-  const [login, setL] = useState(undefined);
-  const [pass, setP] = useState(undefined);
+  const [isShowLoginModal, setShowLoginModal] = useState(false);
+
+  const childrenWithExtraProp = React.Children.map(children, child => {
+    return React.cloneElement(child, {
+      user,
+      showLoginModal: () => setShowLoginModal(true),
+    });
+  });
 
   return (
     <Fragment>
-      {children}
-      <input onChange={val => setL(val.currentTarget.value)}/>
-      <input onChange={val => setP(val.currentTarget.value)}/>
-      <button onClick={() => loginOrRegister(login, pass)}>login</button>
-      <button onClick={() => loginOrRegister(login, pass, false)}>reg</button>
+      <LoginOrRegister
+        close={() => setShowLoginModal(false)}
+        isOpen={isShowLoginModal}
+      />
+      <button onClick={() => setShowLoginModal(true)}>kal</button>
+      {childrenWithExtraProp}
     </Fragment>
   );
-}
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { user } = state.app;
-
   return { user };
-}
+};
 
 const actions = {
   getUser: userModule.getUser,
-  loginOrRegister: userModule.loginOrRegister
 };
 
 export default connect(
   mapStateToProps,
-  dispatch => bindActionCreators(actions, dispatch)
+  dispatch => bindActionCreators(actions, dispatch),
 )(AppContainer);
