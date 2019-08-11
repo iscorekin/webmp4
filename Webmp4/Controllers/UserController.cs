@@ -63,9 +63,11 @@ namespace Webmp4.Controllers
 
             if (userId != null) {
                 var user = _context.Users.FirstOrDefault(x => x.Id == userId);
-                return new ObjectResult(
-                    new UserResponse(user)
-                ); ;
+
+                if (user != null)
+                    return new ObjectResult(
+                        new UserResponse(user)
+                    );
             }
 
             return NotFound();

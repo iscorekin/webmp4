@@ -21,6 +21,5 @@ export const generateParams = params => {
 }
 
 export const setJWT = (token) => {
-  console.log(jwtDecode(token).exp)
-  cookies.set('JWT', token, { expires: jwtDecode(token).exp })
+  cookies.set('JWT', token, { expires: 365 })
 }
