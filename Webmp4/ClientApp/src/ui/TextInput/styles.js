@@ -32,4 +32,6 @@ export const Label = styled.div`
   background-color: white;
   margin-top: -9px;
   margin-left: 21px;
+
+  user-select: none;
 `;

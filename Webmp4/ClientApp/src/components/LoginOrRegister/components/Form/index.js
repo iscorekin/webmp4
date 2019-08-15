@@ -5,6 +5,7 @@ import * as UI from './styles';
 import TextInput from '../../../../ui/TextInput';
 import { CAPTCHA_KEY } from '../../../../constants/env';
 import colors from '../../../../constants/colors';
+import Button from '../../../../ui/Button';
 
 const Form = props => {
   const { isReg } = props;
@@ -12,6 +13,7 @@ const Form = props => {
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [newPassword, setNewPassword] = useState(undefined);
+  const [formValid, setFormValid] = useState(false);
 
   return (
     <UI.Wrapper>
@@ -42,8 +44,14 @@ const Form = props => {
         />
       )}
       <UI.CaptchaWrapper>
-        <ReCAPTCHA sitekey={CAPTCHA_KEY} onChange={val => console.log(val)} />
+        <ReCAPTCHA
+          sitekey={CAPTCHA_KEY}
+          onChange={val => setFormValid(!!val)}
+        />
       </UI.CaptchaWrapper>
+      <Button.default disabled={!formValid} styles={UI.ButtonStyles(isReg)}>
+        {isReg ? 'зарегистрироваться' : 'войти'}
+      </Button.default>
     </UI.Wrapper>
   );
 };
