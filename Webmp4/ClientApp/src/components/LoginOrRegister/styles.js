@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Modal from 'react-modal';
 import { smaller } from '../../helpers/mixins';
 import colors from '../../constants/colors';
@@ -24,4 +24,21 @@ export const StyledModal = styled(Modal)`
     top: calc(50vh - (80vh / 2));
     left: calc(50vw - (80vw / 2));
   `}
+`;
+
+export const TStyles = css`
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ::after {
+    content: '';
+    transition: all .2s ease-in-out;
+    width: 212px;
+    margin-top: 8px;
+    height: 2px;
+    background-color: ${({isReg}) => isReg ? colors.mantis : colors.curiousBlue};
+    ${({ isReg }) => !isReg && css`transform: scaleX(0.35);`}
+  }
 `;
