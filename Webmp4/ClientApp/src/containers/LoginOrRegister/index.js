@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userModule from '../../store/modules/app/user';
@@ -17,6 +17,12 @@ const LoginOrRegisterContainer = props => {
     close,
     isOpen
   }
+
+  useEffect(() => {
+    if (user.isLogged && isOpen) {
+      close();
+    }
+  }, [user])
 
   return (
     <LoginOrRegister

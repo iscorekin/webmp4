@@ -8,12 +8,15 @@ import colors from '../../../../constants/colors';
 import Button from '../../../../ui/Button';
 
 const Form = props => {
-  const { isReg } = props;
-
+  const { isReg, login, register } = props;
+  
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [newPassword, setNewPassword] = useState(undefined);
   const [formValid, setFormValid] = useState(false);
+
+  const handleOnClick = () =>
+    isReg ? register(username, password) : login(username, password);
 
   return (
     <UI.Wrapper>
@@ -49,7 +52,11 @@ const Form = props => {
           onChange={val => setFormValid(!!val)}
         />
       </UI.CaptchaWrapper>
-      <Button.default disabled={!formValid} styles={UI.ButtonStyles(isReg)}>
+      <Button.default
+        disabled={!formValid}
+        styles={UI.ButtonStyles(isReg)}
+        onClick={() => formValid && handleOnClick()}
+      >
         {isReg ? 'зарегистрироваться' : 'войти'}
       </Button.default>
     </UI.Wrapper>

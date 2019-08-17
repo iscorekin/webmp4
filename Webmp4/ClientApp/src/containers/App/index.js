@@ -8,7 +8,7 @@ import LoginOrRegister from '../LoginOrRegister';
 
 const AppContainer = props => {
   const { children } = props;
-  const { user, getUser } = props;
+  const { user, getUser, logout  } = props;
 
   useEffect(() => {
     if (!user.isLogged && JWT) {
@@ -22,6 +22,7 @@ const AppContainer = props => {
     return React.cloneElement(child, {
       user,
       showLoginModal: () => setShowLoginModal(true),
+      logout
     });
   });
 
@@ -44,6 +45,7 @@ const mapStateToProps = state => {
 
 const actions = {
   getUser: userModule.getUser,
+  logout: userModule.logout,
 };
 
 export default connect(

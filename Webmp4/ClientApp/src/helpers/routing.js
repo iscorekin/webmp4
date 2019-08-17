@@ -22,3 +22,7 @@ export const generateParams = params => {
 export const setJWT = (token) => {
   cookies.set('JWT', token, { expires: 365 })
 }
+
+export const unsetJWT = () => {
+  cookies.remove('JWT');
+}
