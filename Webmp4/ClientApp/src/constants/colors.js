@@ -1,4 +1,5 @@
 export default {
+  white: '#FFFFFF',
   aquaHaze: '#F4F7F9',
   aquaHazeDark: '#EFF3F6',
   geyser: '#CED7DF',

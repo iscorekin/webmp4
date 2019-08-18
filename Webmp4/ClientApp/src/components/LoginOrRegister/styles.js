@@ -14,7 +14,7 @@ export const StyledModal = styled(Modal)`
   outline: none;
   border-radius: 4px;
   padding: 32px;
-  box-shadow: 0px 0px 30px -20px ${colors.black};
+  box-shadow: 0px 0px 30px 0px ${colors.geyser};
   display: flex;
   flex-direction: column;
 

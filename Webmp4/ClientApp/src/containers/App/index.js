@@ -32,7 +32,6 @@ const AppContainer = props => {
         close={() => setShowLoginModal(false)}
         isOpen={isShowLoginModal}
       />
-      <button onClick={() => setShowLoginModal(true)}>kal</button>
       {childrenWithExtraProp}
     </Fragment>
   );

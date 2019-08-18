@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import colors from '../../constants/colors';
 import T from '../../ui/T';
 
@@ -34,4 +34,19 @@ export const LogoImg = styled.img`
 
 export const LogoText = styled(T.h3)`
   color: ${colors.aquaHaze};
+`;
+
+export const Right = styled.div``;
+
+export const LoginButton = css`
+  color: ${colors.aquaHaze};
+  border-color: ${colors.aquaHaze};
+  width: 64px;
+  height: 32px;
+  font-size: 14px;
+  padding: 0 40px;
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px ${colors.geyser};
+  }
 `;
