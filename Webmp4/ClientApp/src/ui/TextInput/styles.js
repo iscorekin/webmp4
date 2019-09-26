@@ -6,9 +6,8 @@ export const Container = styled.div`
 `;
 
 export const TextInputWrapper = styled.div`
-  width: 100%;
-  height: 36px;
-  transition: all .2s ease-in-out;
+  min-height: 36px;
+  transition: all 0.2s ease-in-out;
   border: 1px solid
     ${({ isValid, borderColor }) =>
     isValid ? borderColor || colors.curiousBlue : colors.burntSienna};
@@ -17,14 +16,35 @@ export const TextInputWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: ${({ lines }) => (lines ? '12px' : 0)} 20px;
 `;
 
 export const TextInput = styled.input`
-  padding: 0 20px;
   width: 100%;
   font-size: 14px;
   outline: none;
   border: none;
+`;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  font-size: 14px;
+  outline: none;
+  border: none;
+  resize: none;
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f5f5f5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #000000;
+  }
 `;
 
 export const Label = styled.div`

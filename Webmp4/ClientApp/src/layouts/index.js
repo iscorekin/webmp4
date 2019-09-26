@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import Resizer from './Resizer';
@@ -15,17 +15,11 @@ const Layout = props => {
 
   document.title = `${title} | webmp4`;
   
-  const childrenWithExtraProp = React.Children.map(children, child => {
-    return React.cloneElement(child, {
-      ...props
-    });
-  });
-
   return (
     <Wrapper>
       <AppHeader app={app}/>
       <Resizer>
-        {childrenWithExtraProp}
+        {children}
       </Resizer>
     </Wrapper>
   )

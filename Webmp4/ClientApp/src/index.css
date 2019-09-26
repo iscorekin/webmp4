@@ -39,6 +39,6 @@
      quotes: none;
    }
 
-   body {
+   html * {
     font-family: 'Montserrat', sans-serif
    }

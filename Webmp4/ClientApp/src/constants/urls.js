@@ -1,4 +1,4 @@
 export default { 
-  exact: "/",
-  upload: "/upload",
+  exact: '/',
+  upload: '/upload',
 }
